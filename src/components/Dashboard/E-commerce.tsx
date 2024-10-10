@@ -18,7 +18,12 @@ const ChartThree = dynamic(() => import("@/components/Charts/ChartThree"), {
 const ECommerce: React.FC = () => {
   return (
     <>
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-7.5">
+      <div className="mb-4">
+        <h1 className="text-2xl font-bold leading-7 text-gray-900 sm:truncate">
+          Welcome, Hammad 🙌
+        </h1>
+      </div>
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-1 xl:grid-cols-5 2xl:gap-4">
         <CardDataStats title="Total views" total="$3.456K" rate="0.43%" levelUp>
           <svg
             className="fill-primary dark:fill-white"
@@ -103,6 +108,25 @@ const ECommerce: React.FC = () => {
             />
           </svg>
         </CardDataStats>
+        <div className="rounded-sm border border-gray-800 bg-gradient-to-tr from-primary to-secondary px-4 py-4 text-white shadow-lg dark:border-strokedark dark:bg-boxdark">
+          <div className="5 flex flex-col gap-0">
+            <h1 className="text-lg font-bold leading-7 text-white sm:truncate">
+              Your Balance
+            </h1>
+            <p className="text-2xl font-bold leading-7 text-white sm:truncate">
+              $3.456K
+            </p>
+            {/* Add two buttons wallet and topup  */}
+            <div className="mt-3 flex flex-col gap-2">
+              <button className="rounded-sm border border-stroke bg-gradient-to-tr from-primary to-secondary px-3 py-1.5 text-sm font-medium text-white hover:bg-gray-200 dark:border-strokedark dark:bg-meta-4 dark:text-white">
+                Wallet
+              </button>
+              <button className="rounded-sm border border-stroke bg-gradient-to-tr from-primary to-secondary px-3 py-1.5 text-sm font-medium text-white hover:bg-gray-200 dark:border-strokedark dark:bg-meta-4 dark:text-white">
+                Top Up
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div className="mt-4 grid grid-cols-12 gap-4 md:mt-6 md:gap-6 2xl:mt-7.5 2xl:gap-7.5">
