@@ -32,7 +32,7 @@ const AdManagement = () => {
   const handleOpenModal = () => setIsModalOpen(true);
   const handleCloseModal = () => setIsModalOpen(false);
 
-  const handleSelectPlatform = (platform: string) => {
+  const handleSelectPlatform = (platform: any) => {
     setActivePlatform(platform);
     // Add any additional logic needed when selecting a platform
   };

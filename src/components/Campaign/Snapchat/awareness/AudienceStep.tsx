@@ -1,167 +1,273 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
+  CountryDropdown,
+  CountryRegionData,
+} from "react-country-region-selector";
+import { GoogleMapsEmbed } from "@next/third-parties/google";
+import {
+  Autocomplete,
   TextField,
+  Chip,
   Button,
   Select,
   MenuItem,
   FormControl,
   InputLabel,
-  Chip,
-  Box,
-  Typography,
   SelectChangeEvent,
+  StepProps,
 } from "@mui/material";
-import { MapContainer, TileLayer, GeoJSON } from "react-leaflet";
-import { CountryDropdown, RegionDropdown } from "react-country-region-selector";
-import axios from "axios";
-import "leaflet/dist/leaflet.css";
 
-interface AudienceStepProps {
-  data: {
-    locations: string[];
-    deviceLanguage: string[];
-  };
-  updateData: (newData: Partial<AudienceStepProps["data"]>) => void;
+interface AgeRange {
+  from: string;
+  to: string;
 }
 
-const AudienceStep: React.FC<AudienceStepProps> = ({ data, updateData }) => {
+const AudienceStep: React.FC<StepProps<any>> = ({ data, updateData }) => {
   const [locationType, setLocationType] = useState<"country" | "city">(
     "country",
   );
   const [selectedCountry, setSelectedCountry] = useState<string>("");
-  const [selectedRegion, setSelectedRegion] = useState<string>("");
-  const [mapData, setMapData] = useState<any>(null);
+  const [deviceLanguages, setDeviceLanguages] = useState<string[]>(["English"]);
   const [audienceSize, setAudienceSize] = useState<string>("570K - 720K");
-
-  useEffect(() => {
-    if (selectedCountry) {
-      axios
-        .get(
-          `https://nominatim.openstreetmap.org/search?country=${selectedCountry}&format=geojson`,
-        )
-        .then((response) => {
-          setMapData(response.data);
-        })
-        .catch((error) => {
-          console.error("Error fetching map data:", error);
-        });
-    }
-  }, [selectedCountry]);
+  const [genders, setGenders] = useState<string[]>(["Male", "Female"]);
+  const [ageRange, setAgeRange] = useState<AgeRange>({ from: "13", to: "50+" });
+  const [interests, setInterests] = useState<string[]>([]);
 
   const handleCountryChange = (country: string) => {
     setSelectedCountry(country);
-    updateData({ locations: [country] });
   };
 
-  const handleDeviceLanguageChange = (event: SelectChangeEvent<string[]>) => {
-    const {
-      target: { value },
-    } = event;
-    updateData({
-      deviceLanguage: value as string[], // Ensure it's always an array
-    });
+  const toggleSelection = (
+    item: string,
+    setter: React.Dispatch<React.SetStateAction<string[]>>,
+  ) => {
+    setter((prev) =>
+      prev.includes(item) ? prev.filter((i) => i !== item) : [...prev, item],
+    );
   };
+
+  const handleAgeChange = (type: keyof AgeRange, value: string) => {
+    setAgeRange((prev) => ({ ...prev, [type]: value }));
+  };
+
+  const handleInterestChange = (
+    event: React.SyntheticEvent,
+    newValue: string[],
+  ) => {
+    setInterests(newValue);
+  };
+
+  const mapMode = selectedCountry ? "place" : "view";
+  const mapQuery = selectedCountry || "Earth";
 
   return (
-    <Box sx={{ p: 3 }}>
-      <Typography variant="h5" gutterBottom>
-        Audience Settings
-      </Typography>
-      <Typography variant="subtitle1" gutterBottom>
-        Enter your ad targeted audience details
-      </Typography>
+    <div className="flex w-full space-x-3 p-6">
+      <div className="flex w-3/5 flex-col gap-4">
+        <div>
+          <h1 className="mb-2 text-2xl font-bold">Audience Settings</h1>
+          <p className="text-gray-600">
+            Enter your ad targeted audience details
+          </p>
+        </div>
 
-      <Box sx={{ mb: 2 }}>
-        <Button
-          variant={locationType === "country" ? "contained" : "outlined"}
-          onClick={() => setLocationType("country")}
-          sx={{ mr: 1 }}
-        >
-          Country/Region
-        </Button>
-        <Button
-          variant={locationType === "city" ? "contained" : "outlined"}
-          onClick={() => setLocationType("city")}
-        >
-          Targeting City
-        </Button>
-      </Box>
+        <div>
+          <h2 className="mb-2 text-lg font-semibold">Location (select type)</h2>
+          <div className="flex space-x-2">
+            <Button
+              variant={locationType === "country" ? "contained" : "outlined"}
+              onClick={() => setLocationType("country")}
+            >
+              Country/Region
+            </Button>
+            <Button
+              variant={locationType === "city" ? "contained" : "outlined"}
+              onClick={() => setLocationType("city")}
+            >
+              Targeting City
+            </Button>
+          </div>
+        </div>
 
-      <FormControl fullWidth sx={{ mb: 2 }}>
-        <CountryDropdown
-          value={selectedCountry}
-          onChange={handleCountryChange}
-          style={{ padding: "10px", fontSize: "16px" }}
-        />
-      </FormControl>
-
-      <Typography variant="body2" sx={{ mb: 2 }}>
-        Your ad will only be shown to the selected locations.
-      </Typography>
-
-      <Box sx={{ mb: 2 }}>
-        <Typography variant="subtitle1">Added list</Typography>
-        {data?.locations?.map((location) => (
-          <Chip
-            key={location}
-            label={location}
-            onDelete={() =>
-              updateData({
-                locations: data.locations.filter((l) => l !== location),
-              })
-            }
-            sx={{ mr: 1, mb: 1 }}
+        <div>
+          <CountryDropdown
+            value={selectedCountry}
+            onChange={handleCountryChange}
+            classes="w-full p-2 border rounded"
           />
-        ))}
-      </Box>
+          <p className="mt-2 text-sm text-gray-600">
+            Your ad will only be shown to the selected locations.
+          </p>
+        </div>
 
-      <Typography variant="h6" gutterBottom>
-        Demographic
-      </Typography>
-
-      <FormControl fullWidth sx={{ mb: 2 }}>
-        <InputLabel id="device-language-label">Device language</InputLabel>
-        <Select
-          labelId="device-language-label"
-          multiple
-          value={Array.isArray(data.deviceLanguage) ? data.deviceLanguage : []} // Ensure value is always an array
-          onChange={handleDeviceLanguageChange}
-          renderValue={(selected) => (
-            <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
-              {selected.map((value) => (
-                <Chip key={value} label={value} />
-              ))}
-            </Box>
+        <div>
+          <h3 className="text-md mb-2 font-semibold">Added list</h3>
+          <div className="flex flex-wrap">
+            {selectedCountry && (
+              <Chip
+                label={selectedCountry}
+                onDelete={() => setSelectedCountry("")}
+                className="mb-2 mr-2"
+              />
+            )}
+          </div>
+          {selectedCountry && (
+            <Button
+              onClick={() => setSelectedCountry("")}
+              className="text-sm text-blue-500"
+            >
+              Clear all ×
+            </Button>
           )}
-        >
-          <MenuItem value="English">English</MenuItem>
-          <MenuItem value="Arabic">Arabic</MenuItem>
-          {/* Add more MenuItems as needed */}
-        </Select>
-      </FormControl>
+        </div>
 
-      <Box sx={{ display: "flex", mb: 2 }}>
-        <Box sx={{ width: "50%", pr: 2 }}>
-          <MapContainer
-            center={[0, 0]}
-            zoom={2}
-            style={{ height: "400px", width: "100%" }}
-          >
-            <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-            {mapData && <GeoJSON data={mapData} />}
-          </MapContainer>
-        </Box>
-        <Box sx={{ width: "50%", pl: 2 }}>
-          <Typography variant="h6" gutterBottom>
-            Map preview
-          </Typography>
-          <Typography variant="h6" gutterBottom>
+        <div>
+          <h2 className="mb-2 text-lg font-semibold">Demographic</h2>
+          <h3 className="text-md mb-2 font-semibold">Device language</h3>
+          <div className="flex space-x-2">
+            {["English", "Arabic"].map((lang) => (
+              <Button
+                key={lang}
+                variant={
+                  deviceLanguages.includes(lang) ? "contained" : "outlined"
+                }
+                onClick={() => toggleSelection(lang, setDeviceLanguages)}
+              >
+                {lang} {deviceLanguages.includes(lang) && "✓"}
+              </Button>
+            ))}
+          </div>
+        </div>
+
+        <div>
+          <h3 className="text-md mb-2 font-semibold">Audience Gender</h3>
+          <div className="flex space-x-2">
+            {["Male", "Female"].map((gender) => (
+              <Button
+                key={gender}
+                variant={genders.includes(gender) ? "contained" : "outlined"}
+                onClick={() => toggleSelection(gender, setGenders)}
+              >
+                {gender} {genders.includes(gender) && "✓"}
+              </Button>
+            ))}
+          </div>
+        </div>
+
+        <div>
+          <h3 className="text-md mb-2 font-semibold">Age range</h3>
+          <div className="flex items-center space-x-2">
+            <FormControl className="w-24">
+              <InputLabel>From</InputLabel>
+              <Select
+                value={ageRange.from}
+                onChange={(
+                  e: SelectChangeEvent<string>,
+                  child: React.ReactNode,
+                ) => handleAgeChange("from", e.target.value)}
+                label="From"
+              >
+                {["13", "18", "25", "35", "45"].map((age) => (
+                  <MenuItem key={age} value={age}>
+                    {age}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            <span>-</span>
+            <FormControl className="w-24">
+              <InputLabel>To</InputLabel>
+              <Select
+                value={ageRange.to}
+                onChange={(
+                  e: SelectChangeEvent<string>,
+                  child: React.ReactNode,
+                ) => handleAgeChange("to", e.target.value)}
+                label="To"
+              >
+                {["18", "25", "35", "45", "50+"].map((age) => (
+                  <MenuItem key={age} value={age}>
+                    {age}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </div>
+        </div>
+
+        <div>
+          <h2 className="mb-2 text-lg font-semibold">Custom settings</h2>
+          <h3 className="text-md mb-2 font-semibold">
+            Target per interests (Optional)
+          </h3>
+          <Autocomplete
+            multiple
+            options={[
+              "Automotive Enthusiasts",
+              "Beachgoers & Surfers",
+              "Tech Enthusiasts",
+              "Foodies",
+            ]}
+            renderInput={(params) => (
+              <TextField {...params} label="Add interests" />
+            )}
+            value={interests}
+            onChange={handleInterestChange}
+            renderTags={(value, getTagProps) =>
+              value.map((option, index) => (
+                // eslint-disable-next-line react/jsx-key
+                <Chip
+                  variant="outlined"
+                  label={option}
+                  {...getTagProps({ index })}
+                />
+              ))
+            }
+          />
+          {interests.length > 0 && (
+            <div className="mt-2">
+              <h4 className="text-sm font-semibold">Added list</h4>
+              <div className="mt-1 flex flex-wrap">
+                {interests.map((interest) => (
+                  <Chip
+                    key={interest}
+                    label={interest}
+                    onDelete={() =>
+                      setInterests(interests.filter((i) => i !== interest))
+                    }
+                    className="mb-2 mr-2"
+                  />
+                ))}
+              </div>
+              <Button
+                onClick={() => setInterests([])}
+                className="text-sm text-blue-500"
+              >
+                Clear all ×
+              </Button>
+            </div>
+          )}
+        </div>
+      </div>
+
+      <div className="mb-4 flex w-2/5 flex-col items-center gap-2">
+        <div className="w-full pr-2">
+          <GoogleMapsEmbed
+            apiKey="YOUR_GOOGLE_MAPS_API_KEY"
+            height={400}
+            width="100%"
+            mode={mapMode}
+            q={mapQuery}
+          />
+        </div>
+        <div className="w-full pl-2">
+          <h2 className="mb-2 text-lg font-semibold">Map preview</h2>
+          <h2 className="mb-2 text-lg font-semibold">
             Available audience size
-          </Typography>
-          <Typography variant="h5">{audienceSize}</Typography>
-        </Box>
-      </Box>
-    </Box>
+          </h2>
+          <p className="text-2xl font-bold">{audienceSize}</p>
+        </div>
+      </div>
+    </div>
   );
 };
 

@@ -102,7 +102,7 @@ const ObjectiveCard: React.FC<Objective> = ({
   </CardLink>
 );
 
-const SnapchatObjectiveSelector: React.FC = () => {
+const SnapchatObjectiveSelector: any = () => {
   return (
     <Box
       sx={{

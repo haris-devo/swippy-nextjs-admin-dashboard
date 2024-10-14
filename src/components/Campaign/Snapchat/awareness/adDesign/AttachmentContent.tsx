@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { TextField, Select, MenuItem } from "@mui/material";
+import { TextField, Select, MenuItem, SelectChangeEvent } from "@mui/material";
 import { BsInfo } from "react-icons/bs";
 import { IoAddCircleOutline } from "react-icons/io5";
 
@@ -30,7 +30,7 @@ const AttachmentContent: React.FC<AttachmentContentProps> = ({
     attachmentData.appCTA || "Install Now",
   );
 
-  const handleWebsiteCTAChange = (e: React.ChangeEvent<{ value: unknown }>) => {
+  const handleWebsiteCTAChange = (e: any) => {
     const value = e.target.value as string;
     setWebsiteCTA(value);
     onAttachmentDataChange({ ...attachmentData, websiteCTA: value });
@@ -65,7 +65,7 @@ const AttachmentContent: React.FC<AttachmentContentProps> = ({
               />
             </div>
             <p className="text-sm text-blue-600">
-              If you don't have a website,{" "}
+              If you don&apos;t have a website,{" "}
               <a href="#" className="underline">
                 Create one for free
               </a>
@@ -176,7 +176,11 @@ const AttachmentContent: React.FC<AttachmentContentProps> = ({
               </label>
               <Select
                 value={appCTA}
-                onChange={handleAppCTAChange}
+                onChange={(event: SelectChangeEvent<string>) =>
+                  handleAppCTAChange(
+                    event as React.ChangeEvent<{ value: unknown }>,
+                  )
+                }
                 fullWidth
                 className="mt-1"
               >

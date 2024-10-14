@@ -1,9 +1,9 @@
 import React from "react";
 
-const StepIndicator = ({ steps, currentStep }) => {
+const StepIndicator = ({ steps, currentStep }: any) => {
   return (
     <div className="flex items-center space-x-2">
-      {steps.map((step, index) => (
+      {steps.map(({ step, index }: { step: string; index: number }) => (
         <React.Fragment key={index}>
           <div
             className={`flex items-center ${index < currentStep ? "text-blue-500" : "text-gray-500"}`}

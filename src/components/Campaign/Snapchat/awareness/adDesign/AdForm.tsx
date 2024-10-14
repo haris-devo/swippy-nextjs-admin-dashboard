@@ -16,7 +16,7 @@ interface AdData {
 interface AdFormProps {
   adData: AdData;
   adIndex: number;
-  handleAdChange: (adIndex: number, adData: Partial<AdData>) => void;
+  handleAdChange: any;
 }
 
 const AdForm: React.FC<AdFormProps> = ({ adData, adIndex, handleAdChange }) => {

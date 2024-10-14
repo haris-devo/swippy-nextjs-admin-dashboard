@@ -44,7 +44,13 @@ const AdChannelCard: React.FC<AdChannelCardProps> = ({
   </Box>
 );
 
-const AdsChannelSelector: React.FC = () => {
+const AdsChannelSelector = ({
+  onSelect,
+  onClose,
+}: {
+  onSelect: (platform: string) => void;
+  onClose: () => void;
+}) => {
   const [selectedPlatform, setSelectedPlatform] = useState<string | null>(null);
 
   const adChannels = [

@@ -8,8 +8,8 @@ import LaunchStep from "./Snapchat/awareness/LunchStep";
 
 const CampaignLayout = () => {
   const steps = ["Ad design", "Audience", "Budget", "Launch"];
-  const [currentStep, setCurrentStep] = useState(1);
-  const [stepData, setStepData] = useState({
+  const [currentStep, setCurrentStep] = useState<any>(1);
+  const [stepData, setStepData] = useState<any>({
     1: {},
     2: {},
     3: {},
@@ -28,7 +28,7 @@ const CampaignLayout = () => {
     }
   };
 
-  const updateStepData = (data) => {
+  const updateStepData = (data: any) => {
     setStepData({
       ...stepData,
       [currentStep]: { ...stepData[currentStep], ...data },
