@@ -6,6 +6,7 @@ import ChartTwo from "../Charts/ChartTwo";
 import ChatCard from "../Chat/ChatCard";
 import TableOne from "../Tables/TableOne";
 import CardDataStats from "../CardDataStats";
+import CreateCampaign from "../Campaign/CreateCampaign";
 
 const MapOne = dynamic(() => import("@/components/Maps/MapOne"), {
   ssr: false,
@@ -18,10 +19,16 @@ const ChartThree = dynamic(() => import("@/components/Charts/ChartThree"), {
 const ECommerce: React.FC = () => {
   return (
     <>
-      <div className="mb-4">
-        <h1 className="text-2xl font-bold leading-7 text-gray-900 sm:truncate">
-          Welcome, Hammad 🙌
-        </h1>
+      <div className="mb-4 flex w-full items-center justify-between">
+        <div className="flex flex-col gap-1">
+          <h1 className="text-2xl font-bold leading-7 text-gray-900 sm:truncate">
+            Welcome, Hammad 🙌
+          </h1>
+          <p className="mt-1 text-sm text-gray-500">
+            Here&apos;s what&apos;s happening with your store today.
+          </p>
+        </div>
+        <CreateCampaign />
       </div>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-1 xl:grid-cols-5 2xl:gap-4">
         <CardDataStats title="Total views" total="$3.456K" rate="0.43%" levelUp>
@@ -129,15 +136,17 @@ const ECommerce: React.FC = () => {
         </div>
       </div>
 
-      <div className="mt-4 grid grid-cols-12 gap-4 md:mt-6 md:gap-6 2xl:mt-7.5 2xl:gap-7.5">
-        <ChartOne />
-        <ChartTwo />
-        <ChartThree />
-        <MapOne />
+      <div className="mt-4 grid grid-cols-12 gap-2 md:mt-6 md:gap-4 2xl:mt-7.5 2xl:gap-5">
         <div className="col-span-12 xl:col-span-8">
           <TableOne />
         </div>
-        <ChatCard />
+        <ChartTwo />
+        <ChartOne />
+
+        {/* <ChartThree /> */}
+        {/* <MapOne /> */}
+
+        {/* <ChatCard /> */}
       </div>
     </>
   );
