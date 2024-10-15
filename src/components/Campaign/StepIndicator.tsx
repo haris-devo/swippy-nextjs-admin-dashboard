@@ -1,9 +1,22 @@
+// StepIndicator.tsx
 import React from "react";
 
-const StepIndicator = ({ steps, currentStep }: any) => {
+interface Step {
+  step: string;
+}
+
+interface StepIndicatorProps {
+  steps: Step[];
+  currentStep: number;
+}
+
+const StepIndicator: React.FC<StepIndicatorProps> = ({
+  steps,
+  currentStep,
+}) => {
   return (
     <div className="flex items-center space-x-2">
-      {steps.map(({ step, index }: { step: string; index: number }) => (
+      {steps.map((step, index) => (
         <React.Fragment key={index}>
           <div
             className={`flex items-center ${index < currentStep ? "text-blue-500" : "text-gray-500"}`}
@@ -19,7 +32,7 @@ const StepIndicator = ({ steps, currentStep }: any) => {
             >
               {index + 1}
             </div>
-            <span className="ml-2 text-sm font-medium">{step}</span>
+            <span className="ml-2 text-sm font-medium">{step.step}</span>
           </div>
           {index < steps.length - 1 && (
             <div

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { useRouter } from "next/navigation"; // Import useRouter from next/navigation
+import { useRouter } from "next/navigation";
 import StepIndicator from "./StepIndicator";
 import AdDesignStep from "./Snapchat/awareness/adDesign/AdDesginStep";
 import AudienceStep from "./Snapchat/awareness/AudienceStep";
@@ -9,9 +9,14 @@ import BudgetStep from "./Snapchat/awareness/BudgetStep";
 import LaunchStep from "./Snapchat/awareness/LunchStep";
 
 const CampaignLayout = () => {
-  const router = useRouter(); // Initialize the router
-  const steps = ["Ad design", "Audience", "Budget", "Launch"];
-  const [currentStep, setCurrentStep] = useState<number>(1); // Initialize to 1
+  const router = useRouter();
+  const steps = [
+    { step: "Ad design" },
+    { step: "Audience" },
+    { step: "Budget" },
+    { step: "Launch" },
+  ];
+  const [currentStep, setCurrentStep] = useState<number>(1);
   const [stepData, setStepData] = useState<Record<number, any>>({
     1: {},
     2: {},
@@ -23,7 +28,6 @@ const CampaignLayout = () => {
     if (currentStep < steps.length) {
       setCurrentStep((prevStep) => prevStep + 1);
     } else {
-      // Redirect to /manage-ads when Finish is clicked
       router.push("/manage-ads");
     }
   };
