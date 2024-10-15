@@ -68,15 +68,15 @@ const AdDesignStep: React.FC<AdDesignStepProps> = ({
   };
 
   return (
-    <div className="flex w-full flex-col gap-4 lg:flex-row lg:space-x-5">
+    <div className="flex w-full flex-col gap-4 lg:flex-row lg:space-x-4">
       {/* Left Section */}
-      <div className="w-full lg:w-3/5">
+      <div className="w-full rounded-md border border-gray-300 px-5 py-4 lg:w-3/5">
         <h5 className="mb-4 text-2xl font-semibold">
           Let&apos;s start with the content!
         </h5>
 
         {/* Toggle Switch */}
-        <div className="mb-4 flex items-center">
+        <div className="mb-4 flex items-center justify-between">
           <span className="mr-2">Use Snapchat Public Profile</span>
           <Switch
             checked={useSnapchatProfile}
@@ -86,7 +86,7 @@ const AdDesignStep: React.FC<AdDesignStepProps> = ({
         </div>
 
         {/* Campaign Name */}
-        <p className="mb-2 text-lg">A name for your campaign?</p>
+        <p className="mb-2">A name for your campaign?</p>
         <TextField
           fullWidth
           variant="outlined"
@@ -100,28 +100,26 @@ const AdDesignStep: React.FC<AdDesignStepProps> = ({
               </span>
             ),
           }}
-          className="mb-6"
-          inputProps={{ maxLength: 30 }}
         />
 
         {/* Ads Section */}
-        <p className="mb-2 text-lg">Your ads</p>
+        <p className="my-4 mb-2">Your ads</p>
         <div className="mb-4 flex gap-2">
           {ads.map((ad, index) => (
             <div
               key={index}
-              className={`flex h-16 w-16 items-center justify-center rounded-lg border-2 ${
+              className={`flex h-20 w-16 items-center justify-center rounded-lg border-2 ${
                 currentAdIndex === index
-                  ? "border-purple-500"
+                  ? "border-purple-300"
                   : "border-gray-300"
-              } cursor-pointer bg-gray-800 text-white`}
+              } cursor-pointer bg-slate-900 text-white`}
               onClick={() => setCurrentAdIndex(index)}
             >
               Ad {ad.id}
             </div>
           ))}
           <div
-            className="flex h-16 w-16 cursor-pointer items-center justify-center rounded-lg bg-gray-800 text-white"
+            className="flex h-20 w-16 cursor-pointer items-center justify-center rounded-lg bg-gray-800 text-white"
             onClick={handleAddAd}
           >
             <IoAddCircleOutline size={24} />

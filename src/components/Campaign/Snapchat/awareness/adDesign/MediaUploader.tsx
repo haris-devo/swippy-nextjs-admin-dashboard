@@ -51,9 +51,9 @@ const MediaUploader: React.FC<MediaUploaderProps> = ({
           </button>
         </div>
       ) : (
-        <label className="flex w-full cursor-pointer items-center justify-center rounded-md border border-gray-300 px-4 py-6 text-gray-700 hover:bg-gray-50">
-          <IoMdAddCircleOutline className="mr-2 text-2xl text-gray-500" />
-          <span className="text-lg">Add media</span>
+        <label className="flex w-full cursor-pointer items-center justify-center rounded-md border border-gray-300 bg-gray-100 px-4 py-2 text-gray-700 hover:bg-gray-50">
+          <IoMdAddCircleOutline className="mr-2 text-lg text-gray-500" />
+          <span className="">Add media</span>
           <input
             type="file"
             accept="image/*"

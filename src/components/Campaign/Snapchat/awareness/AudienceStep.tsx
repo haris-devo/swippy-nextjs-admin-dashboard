@@ -61,27 +61,41 @@ const AudienceStep: React.FC<StepProps<any>> = ({ data, updateData }) => {
   const mapQuery = selectedCountry || "Earth";
 
   return (
-    <div className="flex w-full space-x-3 p-6">
-      <div className="flex w-3/5 flex-col gap-4">
+    <div className="flex w-full space-x-6 p-6">
+      <div className="flex w-3/5 flex-col gap-4 rounded border border-gray-300 p-3 px-4">
         <div>
-          <h1 className="mb-2 text-2xl font-bold">Audience Settings</h1>
-          <p className="text-gray-600">
+          <h1 className="mb-1 text-2xl font-semibold">Audience Settings</h1>
+          <p className="text-gray-400">
             Enter your ad targeted audience details
           </p>
         </div>
 
         <div>
-          <h2 className="mb-2 text-lg font-semibold">Location (select type)</h2>
-          <div className="flex space-x-2">
+          <h2 className="mb-2 font-medium">Location (select type)</h2>
+          <div className="flex justify-between space-x-2">
             <Button
               variant={locationType === "country" ? "contained" : "outlined"}
               onClick={() => setLocationType("country")}
+              sx={{
+                fontSize: "15px",
+                padding: "0 16px", // Reset padding if necessary
+                height: "30px", // Set desired height
+                textTransform: "capitalize",
+                width: "100%",
+              }}
             >
               Country/Region
             </Button>
             <Button
               variant={locationType === "city" ? "contained" : "outlined"}
               onClick={() => setLocationType("city")}
+              sx={{
+                fontSize: "15px",
+                padding: "0 16px", // Reset padding if necessary
+                height: "30px", // Set desired height
+                textTransform: "capitalize",
+                width: "100%",
+              }}
             >
               Targeting City
             </Button>
@@ -100,14 +114,18 @@ const AudienceStep: React.FC<StepProps<any>> = ({ data, updateData }) => {
         </div>
 
         <div>
-          <h3 className="text-md mb-2 font-semibold">Added list</h3>
+          <h3 className="text-md mb-2 font-medium">Added list</h3>
           <div className="flex flex-wrap">
-            {selectedCountry && (
+            {selectedCountry ? (
               <Chip
                 label={selectedCountry}
                 onDelete={() => setSelectedCountry("")}
                 className="mb-2 mr-2"
               />
+            ) : (
+              <p className="w-full border border-gray-300 p-2 text-gray-400">
+                No location selected
+              </p>
             )}
           </div>
           {selectedCountry && (
@@ -121,8 +139,8 @@ const AudienceStep: React.FC<StepProps<any>> = ({ data, updateData }) => {
         </div>
 
         <div>
-          <h2 className="mb-2 text-lg font-semibold">Demographic</h2>
-          <h3 className="text-md mb-2 font-semibold">Device language</h3>
+          <h2 className="mb-2 text-lg font-medium">Demographic</h2>
+          <h3 className="mb-2 text-base">Device language</h3>
           <div className="flex space-x-2">
             {["English", "Arabic"].map((lang) => (
               <Button
@@ -131,6 +149,12 @@ const AudienceStep: React.FC<StepProps<any>> = ({ data, updateData }) => {
                   deviceLanguages.includes(lang) ? "contained" : "outlined"
                 }
                 onClick={() => toggleSelection(lang, setDeviceLanguages)}
+                sx={{
+                  fontSize: "15px",
+                  padding: "0 16px", // Reset padding if necessary
+                  height: "30px", // Set desired height
+                  textTransform: "capitalize",
+                }}
               >
                 {lang} {deviceLanguages.includes(lang) && "✓"}
               </Button>
@@ -139,13 +163,19 @@ const AudienceStep: React.FC<StepProps<any>> = ({ data, updateData }) => {
         </div>
 
         <div>
-          <h3 className="text-md mb-2 font-semibold">Audience Gender</h3>
+          <h3 className="mb-2 text-base">Audience Gender</h3>
           <div className="flex space-x-2">
             {["Male", "Female"].map((gender) => (
               <Button
                 key={gender}
                 variant={genders.includes(gender) ? "contained" : "outlined"}
                 onClick={() => toggleSelection(gender, setGenders)}
+                sx={{
+                  fontSize: "15px",
+                  padding: "0 16px", // Reset padding if necessary
+                  height: "30px", // Set desired height
+                  textTransform: "capitalize",
+                }}
               >
                 {gender} {genders.includes(gender) && "✓"}
               </Button>
@@ -154,7 +184,7 @@ const AudienceStep: React.FC<StepProps<any>> = ({ data, updateData }) => {
         </div>
 
         <div>
-          <h3 className="text-md mb-2 font-semibold">Age range</h3>
+          <h3 className="mb-4 text-base">Age range</h3>
           <div className="flex items-center space-x-2">
             <FormControl className="w-24">
               <InputLabel>From</InputLabel>
@@ -165,6 +195,12 @@ const AudienceStep: React.FC<StepProps<any>> = ({ data, updateData }) => {
                   child: React.ReactNode,
                 ) => handleAgeChange("from", e.target.value)}
                 label="From"
+                sx={{
+                  fontSize: "15px",
+                  height: "40px", // Set desired height
+                  textTransform: "capitalize",
+                  width: "100%",
+                }}
               >
                 {["13", "18", "25", "35", "45"].map((age) => (
                   <MenuItem key={age} value={age}>
@@ -183,6 +219,12 @@ const AudienceStep: React.FC<StepProps<any>> = ({ data, updateData }) => {
                   child: React.ReactNode,
                 ) => handleAgeChange("to", e.target.value)}
                 label="To"
+                sx={{
+                  fontSize: "15px",
+                  height: "40px", // Set desired height
+                  textTransform: "capitalize",
+                  width: "100%",
+                }}
               >
                 {["18", "25", "35", "45", "50+"].map((age) => (
                   <MenuItem key={age} value={age}>
@@ -195,10 +237,8 @@ const AudienceStep: React.FC<StepProps<any>> = ({ data, updateData }) => {
         </div>
 
         <div>
-          <h2 className="mb-2 text-lg font-semibold">Custom settings</h2>
-          <h3 className="text-md mb-2 font-semibold">
-            Target per interests (Optional)
-          </h3>
+          <h2 className="mb-2 text-lg font-medium">Custom settings</h2>
+          <h3 className="mb-4 text-base">Target per interests (Optional)</h3>
           <Autocomplete
             multiple
             options={[
@@ -212,20 +252,10 @@ const AudienceStep: React.FC<StepProps<any>> = ({ data, updateData }) => {
             )}
             value={interests}
             onChange={handleInterestChange}
-            renderTags={(value, getTagProps) =>
-              value.map((option, index) => (
-                // eslint-disable-next-line react/jsx-key
-                <Chip
-                  variant="outlined"
-                  label={option}
-                  {...getTagProps({ index })}
-                />
-              ))
-            }
           />
           {interests.length > 0 && (
-            <div className="mt-2">
-              <h4 className="text-sm font-semibold">Added list</h4>
+            <div className="mt-2 flex flex-col">
+              <h4 className="text-sm">Added list</h4>
               <div className="mt-1 flex flex-wrap">
                 {interests.map((interest) => (
                   <Chip
@@ -240,7 +270,7 @@ const AudienceStep: React.FC<StepProps<any>> = ({ data, updateData }) => {
               </div>
               <Button
                 onClick={() => setInterests([])}
-                className="text-sm text-blue-500"
+                className="bg-black text-sm text-blue-500"
               >
                 Clear all ×
               </Button>
@@ -249,7 +279,7 @@ const AudienceStep: React.FC<StepProps<any>> = ({ data, updateData }) => {
         </div>
       </div>
 
-      <div className="mb-4 flex w-2/5 flex-col items-center gap-2">
+      <div className="mb-4 flex h-max w-2/5 flex-col items-center gap-2 rounded border border-gray-300 bg-gray-100 p-3 py-5 shadow">
         <div className="w-full pr-2">
           <GoogleMapsEmbed
             apiKey="YOUR_GOOGLE_MAPS_API_KEY"
@@ -261,10 +291,8 @@ const AudienceStep: React.FC<StepProps<any>> = ({ data, updateData }) => {
         </div>
         <div className="w-full pl-2">
           <h2 className="mb-2 text-lg font-semibold">Map preview</h2>
-          <h2 className="mb-2 text-lg font-semibold">
-            Available audience size
-          </h2>
-          <p className="text-2xl font-bold">{audienceSize}</p>
+          <h2 className="mb-2 font-medium">Available audience size</h2>
+          <p className="text-xl font-bold text-black-2">{audienceSize}</p>
         </div>
       </div>
     </div>

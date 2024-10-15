@@ -73,9 +73,11 @@ const ObjectiveCard: React.FC<Objective> = ({
         transition: "all 0.3s",
         background: "#fff",
         "&:hover": {
-          borderColor: "#1976d2",
+          borderColor: "#c5e99c",
           boxShadow: "0 4px 20px rgba(25, 118, 210, 0.2)",
           transform: "translateY(-4px)",
+          backgroundColor: "#fdfdfd",
+          color: "white",
         },
       }}
     >
@@ -113,9 +115,9 @@ const SnapchatObjectiveSelector: any = () => {
       }}
     >
       <Typography
-        variant="h4"
+        variant="h6"
         sx={{
-          marginBottom: 4,
+          marginBottom: 2,
           textAlign: "center",
           color: "#1976d2",
           fontWeight: 700,
@@ -125,7 +127,7 @@ const SnapchatObjectiveSelector: any = () => {
       </Typography>
       <Grid container spacing={2}>
         {objectives.map((objective, index) => (
-          <Grid item xs={12} sm={6} md={3} key={index}>
+          <Grid item xs={12} sm={6} md={6} key={index}>
             <ObjectiveCard {...objective} />
           </Grid>
         ))}

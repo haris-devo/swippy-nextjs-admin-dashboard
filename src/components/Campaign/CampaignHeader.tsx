@@ -1,5 +1,5 @@
+import SnapchatIcon from "@/icons/SnapchatIcon";
 import React from "react";
-import { BsSnapchat } from "react-icons/bs";
 
 const CampaignHeader = () => {
   return (
@@ -7,7 +7,7 @@ const CampaignHeader = () => {
       <div className="container mx-auto flex items-center justify-between">
         <h1 className="text-2xl font-bold text-black">Swippy</h1>
         <div className="flex items-center space-x-2 font-semibold text-black-2">
-          <BsSnapchat />
+          <SnapchatIcon />
           <span>Snapchat - Awareness</span>
         </div>
         <div className="" />

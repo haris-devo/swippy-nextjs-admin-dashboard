@@ -15,10 +15,11 @@ import TwitterIcon from "@/icons/TwitterIcon";
 import MetaIcon from "@/icons/MetaIcon";
 import ShahidIcon from "@/icons/Shahidicon";
 import YouTubeIcon from "@/icons/YoutubeIcon";
+import SnapchatIcon from "@/icons/SnapchatIcon";
 
 const AdManagement = () => {
   const adPlatforms = [
-    { platform: "Snapchat Ads", icon: <FaSnapchat size={24} /> },
+    { platform: "Snapchat Ads", icon: <SnapchatIcon size={24} /> },
     { platform: "Google Ads", icon: <GoogleIcon size={24} /> },
     { platform: "Twitter Ads", icon: <TwitterIcon size={24} /> },
     { platform: "Meta Ads", icon: <MetaIcon size={24} /> },

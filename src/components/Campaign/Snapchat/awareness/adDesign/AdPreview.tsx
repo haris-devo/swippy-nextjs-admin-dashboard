@@ -14,6 +14,7 @@ interface AdPreviewProps {
   totalAds: number;
   handlePrevAd: () => void;
   handleNextAd: () => void;
+  isLaunching?: boolean;
 }
 
 const AdPreview: React.FC<AdPreviewProps> = ({
@@ -22,13 +23,16 @@ const AdPreview: React.FC<AdPreviewProps> = ({
   totalAds,
   handlePrevAd,
   handleNextAd,
+  isLaunching,
 }) => {
   return (
-    <div className="max-h-150 w-full rounded-lg bg-white p-4 shadow-lg lg:w-2/5">
-      <h6 className="mb-2 text-xl font-medium">Ad live preview!</h6>
+    <div
+      className={`h-max w-full rounded-lg border border-gray-300 bg-white/10 p-4 shadow ${isLaunching ? "lg:w-full" : "lg:w-2/5"} lg:w-2/5`}
+    >
+      <h6 className="mb-2 text-center text-xl font-medium">Ad live preview!</h6>
 
       {/* Navigation Buttons */}
-      <div className="mb-1 flex items-center gap-2">
+      <div className="mb-1 flex w-full items-center justify-center gap-2">
         <button
           className={`rounded bg-transparent p-1 text-blue-500 hover:bg-blue-100 ${
             currentAdIndex === 0 ? "cursor-not-allowed opacity-50" : ""
@@ -38,7 +42,7 @@ const AdPreview: React.FC<AdPreviewProps> = ({
         >
           ←
         </button>
-        <span className="text-sm text-blue-500">
+        <span className="text-center text-sm text-blue-500">
           Ad {currentAdIndex + 1}/{totalAds}
         </span>
         <button

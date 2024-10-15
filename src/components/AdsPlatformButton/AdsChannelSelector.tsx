@@ -8,6 +8,7 @@ import MetaIcon from "@/icons/MetaIcon";
 import ShahidIcon from "@/icons/Shahidicon";
 import YouTubeIcon from "@/icons/YoutubeIcon";
 import SnapchatObjectiveSelector from "./SnapchatObjectiveSelector";
+import SnapchatIcon from "@/icons/SnapchatIcon";
 
 interface AdChannelCardProps {
   icon: React.ReactNode;
@@ -54,7 +55,7 @@ const AdsChannelSelector = ({
   const [selectedPlatform, setSelectedPlatform] = useState<string | null>(null);
 
   const adChannels = [
-    { title: "Snapchat Ads", icon: <FaSnapchat size={72} /> },
+    { title: "Snapchat Ads", icon: <SnapchatIcon size={72} /> },
     { title: "Google Ads", icon: <GoogleIcon size={72} /> },
     { title: "Twitter Ads", icon: <TwitterIcon size={72} /> },
     { title: "Meta Ads", icon: <MetaIcon size={72} /> },

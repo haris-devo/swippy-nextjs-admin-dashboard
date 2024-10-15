@@ -29,7 +29,7 @@ const AdForm: React.FC<AdFormProps> = ({ adData, adIndex, handleAdChange }) => {
   };
 
   return (
-    <div className="w-full overflow-hidden rounded-lg bg-white shadow-sm">
+    <div className="w-full overflow-hidden rounded-lg bg-white/30 shadow-sm">
       <div className="p-4">
         <h2 className="mb-4 text-lg font-semibold">Ad {adData.id}</h2>
 

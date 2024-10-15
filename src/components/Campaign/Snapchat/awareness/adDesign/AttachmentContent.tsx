@@ -162,10 +162,10 @@ const AttachmentContent: React.FC<AttachmentContentProps> = ({
             </div>
             <div>
               <p className="mb-2 text-sm font-medium text-gray-700">Add logo</p>
-              <p className="mb-2 text-xs text-gray-500">
+              <p className="mb-2 text-xs text-gray-400">
                 Required by Snapchat.
               </p>
-              <button className="flex items-center rounded-md border border-purple-500 px-4 py-2 text-purple-600 hover:bg-purple-50">
+              <button className="flex w-full items-center justify-center rounded-md border border-purple-200 bg-gray-100 px-4 py-2 text-purple-600 hover:bg-purple-50">
                 <IoAddCircleOutline className="mr-2" />
                 Add logo
               </button>
