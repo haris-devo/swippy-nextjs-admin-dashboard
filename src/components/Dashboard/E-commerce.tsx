@@ -7,6 +7,9 @@ import ChatCard from "../Chat/ChatCard";
 import TableOne from "../Tables/TableOne";
 import CardDataStats from "../CardDataStats";
 import CreateCampaign from "../Campaign/CreateCampaign";
+import ReportsSection from "../Reports/ReportsSection";
+import ReportsTable from "../Reports/ReprotsTable";
+import { campaignsData } from "@/data/ReportsData";
 
 const MapOne = dynamic(() => import("@/components/Maps/MapOne"), {
   ssr: false,
@@ -99,11 +102,11 @@ const ECommerce: React.FC = () => {
       </div>
 
       <div className="mt-4 grid grid-cols-12 gap-2 md:mt-6 md:gap-4 2xl:mt-7.5 2xl:gap-5">
-        <div className="col-span-12 xl:col-span-8">
-          <TableOne />
+        <div className="col-span-12 xl:col-span-12">
+          <ReportsTable campaigns={campaignsData} />
         </div>
-        <ChartTwo />
-        <ChartOne />
+        {/* <ChartTwo /> */}
+        {/* <ChartOne /> */}
       </div>
     </>
   );

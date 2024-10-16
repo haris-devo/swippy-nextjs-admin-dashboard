@@ -1,4 +1,3 @@
-// ReportsSection.tsx
 "use client";
 import React, {
   useState,
@@ -18,52 +17,11 @@ import {
   Menu,
   Button,
   Box,
-  Typography,
 } from "@mui/material";
-import GoogleIcon from "@/icons/GoogleIcon";
-import SnapchatIcon from "@/icons/SnapchatIcon";
+import ReportsTable from "./ReprotsTable";
+import { campaignsData } from "@/data/ReportsData";
 
-// Define the structure of a campaign
-interface Campaign {
-  name: string;
-  objective: string;
-  remainingDuration: string;
-  impressions: number;
-  clicks: number;
-  eCPC: number;
-  spend: number;
-  totalBudget: number;
-  status: string; // Added status for filtering purposes
-}
-
-// Sample campaign data
-const campaignsData: Campaign[] = [
-  {
-    name: "Spring Sale Campaign",
-    objective: "Increase Brand Awareness",
-    remainingDuration: "10 days",
-    impressions: 15000,
-    clicks: 500,
-    eCPC: 0.3,
-    spend: 150,
-    totalBudget: 500,
-    status: "Active",
-  },
-  {
-    name: "Summer Promotion",
-    objective: "Generate Leads",
-    remainingDuration: "5 days",
-    impressions: 20000,
-    clicks: 800,
-    eCPC: 0.25,
-    spend: 200,
-    totalBudget: 800,
-    status: "Paused",
-  },
-  // Add more campaign objects as needed
-];
-
-// Props for CustomButton
+// Button component
 interface CustomButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
@@ -71,13 +29,11 @@ interface CustomButtonProps
   className?: string;
 }
 
-// CustomButton Component with React.memo for optimization
-// eslint-disable-next-line react/display-name
-const CustomButton: React.FC<CustomButtonProps> = React.memo(
+const CustomButton = React.memo<CustomButtonProps>(
   ({ children, variant = "primary", className = "", ...props }) => {
     const baseStyle =
       "px-3 py-1.5 rounded-lg font-medium text-sm transition-colors duration-200";
-    const variants: Record<string, string> = {
+    const variants = {
       primary: "bg-violet-500 hover:bg-violet-600 text-white",
       outline: "border border-gray-200 hover:bg-gray-50 text-gray-700",
     };
@@ -93,14 +49,14 @@ const CustomButton: React.FC<CustomButtonProps> = React.memo(
   },
 );
 
-// Props for CustomInput
+CustomButton.displayName = "CustomButton";
+
+// Input component
 interface CustomInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   className?: string;
 }
 
-// CustomInput Component with React.memo for optimization
-// eslint-disable-next-line react/display-name
-const CustomInput: React.FC<CustomInputProps> = React.memo(
+const CustomInput = React.memo<CustomInputProps>(
   ({ className = "", ...props }) => {
     return (
       <input
@@ -111,17 +67,16 @@ const CustomInput: React.FC<CustomInputProps> = React.memo(
   },
 );
 
-// ReportsSection Component
+CustomInput.displayName = "CustomInput";
+
 const ReportsSection: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [objectiveFilter, setObjectiveFilter] = useState<string>("");
   const [statusFilter, setStatusFilter] = useState<string>("");
-
-  // State for Filter Menu
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+
   const open = Boolean(anchorEl);
 
-  // Handle opening the filter menu
   const handleFilterClick = useCallback(
     (event: MouseEvent<HTMLButtonElement>) => {
       setAnchorEl(event.currentTarget);
@@ -129,12 +84,10 @@ const ReportsSection: React.FC = () => {
     [],
   );
 
-  // Handle closing the filter menu
   const handleFilterClose = useCallback(() => {
     setAnchorEl(null);
   }, []);
 
-  // Handle search input change
   const handleSearchChange = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {
       setSearchTerm(event.target.value);
@@ -142,7 +95,6 @@ const ReportsSection: React.FC = () => {
     [],
   );
 
-  // Handle Objective filter change
   const handleObjectiveChange = useCallback(
     (event: SelectChangeEvent<string>) => {
       setObjectiveFilter(event.target.value);
@@ -150,12 +102,10 @@ const ReportsSection: React.FC = () => {
     [],
   );
 
-  // Handle Status filter change
   const handleStatusChange = useCallback((event: SelectChangeEvent<string>) => {
     setStatusFilter(event.target.value);
   }, []);
 
-  // Get unique objectives and statuses for filter dropdowns
   const objectives = useMemo(() => {
     const objs = campaignsData.map((campaign) => campaign.objective);
     return Array.from(new Set(objs));
@@ -166,7 +116,6 @@ const ReportsSection: React.FC = () => {
     return Array.from(new Set(sts));
   }, []);
 
-  // Filtered campaigns based on search and filters
   const filteredCampaigns = useMemo(() => {
     return campaignsData.filter((campaign) => {
       const matchesSearch = campaign.name
@@ -182,7 +131,6 @@ const ReportsSection: React.FC = () => {
     });
   }, [searchTerm, objectiveFilter, statusFilter]);
 
-  // Handle resetting all filters
   const resetFilters = useCallback(() => {
     setSearchTerm("");
     setObjectiveFilter("");
@@ -190,7 +138,6 @@ const ReportsSection: React.FC = () => {
     handleFilterClose();
   }, [handleFilterClose]);
 
-  // Determine if any filter is active
   const isFilterActive = useMemo(() => {
     return objectiveFilter !== "" || statusFilter !== "";
   }, [objectiveFilter, statusFilter]);
@@ -227,7 +174,6 @@ const ReportsSection: React.FC = () => {
 
         {/* Filter and Clear Filter Buttons */}
         <div className="flex items-center gap-2">
-          {/* Filter Dropdown */}
           <div>
             <CustomButton
               variant="outline"
@@ -258,7 +204,6 @@ const ReportsSection: React.FC = () => {
               }}
             >
               <Box sx={{ p: 0.5, borderRadius: 1 }}>
-                {/* Objective Filter */}
                 <FormControl
                   fullWidth
                   variant="outlined"
@@ -283,7 +228,6 @@ const ReportsSection: React.FC = () => {
                   </Select>
                 </FormControl>
 
-                {/* Status Filter */}
                 <FormControl
                   fullWidth
                   variant="outlined"
@@ -308,7 +252,6 @@ const ReportsSection: React.FC = () => {
                   </Select>
                 </FormControl>
 
-                {/* Reset Filters Button */}
                 <Box mt={1} display="flex" justifyContent="flex-end">
                   <Button
                     variant="text"
@@ -324,7 +267,6 @@ const ReportsSection: React.FC = () => {
             </Menu>
           </div>
 
-          {/* Clear Filters Button (visible only when filters are active) */}
           {isFilterActive && (
             <CustomButton
               variant="outline"
@@ -338,103 +280,8 @@ const ReportsSection: React.FC = () => {
         </div>
       </div>
 
-      {/* Table Section */}
-      <div className="overflow-x-auto">
-        <table className="w-full table-auto border border-gray-300">
-          <thead>
-            <tr className="border border-gray-300 bg-gray-100">
-              <th className="px-4 py-2 text-left text-sm font-medium text-gray-600">
-                Name
-              </th>
-              <th className="px-4 py-2 text-left text-sm font-medium text-gray-600">
-                Objective
-              </th>
-              <th className="px-4 py-2 text-left text-sm font-medium text-gray-600">
-                Remaining Duration
-              </th>
-              <th className="px-4 py-2 text-left text-sm font-medium text-gray-600">
-                Impressions
-              </th>
-              <th className="px-4 py-2 text-left text-sm font-medium text-gray-600">
-                Clicks
-              </th>
-              <th className="px-4 py-2 text-left text-sm font-medium text-gray-600">
-                eCPC
-              </th>
-              <th className="px-4 py-2 text-left text-sm font-medium text-gray-600">
-                Spend
-              </th>
-              <th className="px-4 py-2 text-left text-sm font-medium text-gray-600">
-                Total Budget
-              </th>
-              <th className="px-4 py-2 text-left text-sm font-medium text-gray-600">
-                Status
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredCampaigns.length > 0 ? (
-              filteredCampaigns.map((campaign, index) => (
-                <tr
-                  key={index}
-                  className="border-b border-gray-200 last:border-b-0"
-                >
-                  <td className="px-4 py-4 text-left">{campaign.name}</td>
-                  <td className="px-4 py-4 text-left">{campaign.objective}</td>
-                  <td className="px-4 py-4 text-left">
-                    {campaign.remainingDuration}
-                  </td>
-                  <td className="px-4 py-4 text-left">
-                    {campaign.impressions}
-                  </td>
-                  <td className="px-4 py-4 text-left">{campaign.clicks}</td>
-                  <td className="px-4 py-4 text-left">
-                    ${campaign.eCPC.toFixed(2)}
-                  </td>
-                  <td className="px-4 py-4 text-left">
-                    ${campaign.spend.toFixed(2)}
-                  </td>
-                  <td className="px-4 py-4 text-left">
-                    ${campaign.totalBudget.toFixed(2)}
-                  </td>
-                  <td
-                    className={`${campaign.status === "Active" ? "bg-green-100" : "bg-red-100"} px-4 py-4 text-left`}
-                  >
-                    {campaign.status}
-                  </td>
-                </tr>
-              ))
-            ) : (
-              <tr className="border-b border-gray-200">
-                <td className="px-4 py-4 text-center" colSpan={9}>
-                  <div className="flex flex-col items-center justify-center py-12">
-                    {/* Placeholder campaign cards */}
-                    <div className="mb-4 flex flex-col gap-4">
-                      <div className="mr-10 flex items-center gap-3 rounded-lg bg-gray-50 px-6 py-3">
-                        <GoogleIcon size={24} />
-                        <div className="h-4 w-16 rounded bg-gray-200"></div>
-                        <div className="h-4 w-16 rounded bg-gray-200"></div>
-                        <div className="h-4 w-16 rounded bg-green-100"></div>
-                      </div>
-                      <div className="ml-10 flex items-center gap-3 rounded-lg bg-gray-50 px-6 py-3">
-                        <SnapchatIcon size={24} />
-                        <div className="h-4 w-16 rounded bg-gray-200"></div>
-                        <div className="h-4 w-16 rounded bg-gray-200"></div>
-                        <div className="h-4 w-16 rounded bg-yellow-100"></div>
-                      </div>
-                    </div>
-                    <span className="text-gray-500">
-                      {filteredCampaigns.length === 0
-                        ? "No campaigns found."
-                        : "You have no campaigns yet!"}
-                    </span>
-                  </div>
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </table>
-      </div>
+      {/* Campaigns Table */}
+      <ReportsTable campaigns={filteredCampaigns} />
     </div>
   );
 };

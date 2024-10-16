@@ -1,7 +1,8 @@
 // pages/manage-ads.tsx
 import AdManagement from "@/components/AdsPlatformButton/AdManagment";
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
-import AdCampaignTable from "@/components/Tables/TableOne";
+import ReportsTable from "@/components/Reports/ReprotsTable";
+import { campaignsData } from "@/data/ReportsData";
 
 import { Metadata } from "next";
 
@@ -21,12 +22,9 @@ const ManageAdsPage = () => {
           Efficiently manage your campaigns from one dashboard
         </h3>
         <AdManagement />
-        <div className="flex h-auto items-center justify-center rounded-lg border border-gray-200 text-center text-gray-500">
-          {/* <h1 className="text-lg font-medium leading-6 text-gray-500">
-            No campaigns available yet
-          </h1> */}
-          <AdCampaignTable />
-        </div>
+        {/* <div className="flex h-auto items-center justify-center rounded-lg border border-gray-200 text-center text-gray-500"> */}
+        <ReportsTable campaigns={campaignsData} />
+        {/* </div> */}
       </div>
     </DefaultLayout>
   );
