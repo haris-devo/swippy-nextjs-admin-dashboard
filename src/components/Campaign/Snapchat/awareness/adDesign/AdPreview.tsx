@@ -67,14 +67,29 @@ const AdPreview: React.FC<AdPreviewProps> = ({
 
       {/* Ad Preview */}
       <div className="relative mt-2 flex h-96 w-full items-center justify-center rounded-lg bg-gray-800">
+        <div className="absolute left-1 top-0.5 z-50">
+          <div className="flex flex-col gap-0.5 rounded bg-black-2/40 p-1 px-2">
+            <h1 className="text-base font-bold text-white">
+              {adData.brandName ?? "Brand Name"}
+            </h1>
+            <h1 className="text-sm font-medium text-white">
+              {" "}
+              {adData.headline ?? "Headline"}
+            </h1>
+          </div>
+        </div>
         {adData.media ? (
-          <img
-            src={URL.createObjectURL(adData.media)}
-            alt="Ad preview"
-            className="max-h-full max-w-full rounded-lg"
-          />
+          <>
+            <img
+              src={URL.createObjectURL(adData.media)}
+              alt="Ad preview"
+              className="max-h-full max-w-full rounded-lg"
+            />
+          </>
         ) : (
-          <div className="text-white opacity-50">Ad Preview</div>
+          <>
+            <div className="text-white opacity-50">Ad Preview</div>
+          </>
         )}
       </div>
     </div>
