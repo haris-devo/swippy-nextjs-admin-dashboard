@@ -22,12 +22,12 @@ interface AgeRange {
   to: string;
 }
 
-const AudienceStepMeta: React.FC = ({
+const AudienceStepMeta = ({
   data,
   updateData,
 }: {
   data?: any;
-  updateData?: any;
+  updateData: (data: any) => void;
 }) => {
   const [locationType, setLocationType] = useState<"country" | "city">(
     "country",

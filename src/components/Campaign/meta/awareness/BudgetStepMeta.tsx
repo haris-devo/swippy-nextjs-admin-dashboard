@@ -21,7 +21,7 @@ const BudgetStepMeta: React.FC<BudgetStepProps> = ({ data, updateData }) => {
     setTabValue(newValue);
   };
 
-  const handleAdDurationChange = (duration: number) => {
+  const handleAdDurationChange = (duration: any) => {
     setAdDuration(duration);
 
     // Update the end date based on duration

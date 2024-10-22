@@ -14,7 +14,7 @@ const AdSetupSection: React.FC<AdSetupSectionProps> = ({
   <div className="mb-5">
     <h5 className="mb-2 text-xl font-semibold">Ad Setup</h5>
     <p className="text-sm text-gray-600">
-      Choose how you'd like to structure your ad.
+      Choose how you&apos;d like to structure your ad.
     </p>
 
     {/* Format Selection */}

@@ -2,10 +2,10 @@ import React from "react";
 import GoogleIcon from "@/icons/GoogleIcon";
 import TwitterIcon from "@/icons/TwitterIcon";
 import MetaIcon from "@/icons/MetaIcon";
-import ShahidIcon from "@/icons/ShahidIcon";
 import YouTubeIcon from "@/icons/YoutubeIcon";
 import SnapchatIcon from "@/icons/SnapchatIcon";
 import Link from "next/link";
+import ShahidIcon from "@/icons/Shahidicon";
 
 // Define the allowed ad platform types
 type AdPlatform =
