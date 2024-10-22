@@ -3,13 +3,12 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import StepIndicator from "./StepIndicator";
-import AudienceStep from "./Snapchat/awareness/AudienceStep";
-import BudgetStep from "./Snapchat/awareness/BudgetStep";
-import LaunchStep from "./Snapchat/awareness/LunchStep";
 import AdDesignStepMeta from "./meta/awareness/adDesignMeta/AdDesignStepMetaMain/AdDesginStepMeta";
-import AdDesignStep from "./Snapchat/awareness/adDesign/AdDesginStep";
+import AudienceStepMeta from "./meta/awareness/AudienceStepMeta";
+import BudgetStepMeta from "./meta/awareness/BudgetStepMeta";
+import LaunchStepMeta from "./meta/awareness/LunchStepMeta";
 
-const CampaignLayout = () => {
+const CampaignLayoutMeta = () => {
   const router = useRouter();
   const steps = [
     { step: "Ad design" },
@@ -49,13 +48,21 @@ const CampaignLayout = () => {
   const renderStepContent = () => {
     switch (currentStep) {
       case 1:
-        return <AdDesignStep data={stepData[1]} updateData={updateStepData} />;
+        return (
+          <AdDesignStepMeta data={stepData[1]} updateData={updateStepData} />
+        );
       case 2:
-        return <AudienceStep data={stepData[2]} updateData={updateStepData} />;
+        return (
+          <AudienceStepMeta data={stepData[2]} updateData={updateStepData} />
+        );
       case 3:
-        return <BudgetStep data={stepData[3]} updateData={updateStepData} />;
+        return (
+          <BudgetStepMeta data={stepData[3]} updateData={updateStepData} />
+        );
       case 4:
-        return <LaunchStep data={stepData[4]} updateData={updateStepData} />;
+        return (
+          <LaunchStepMeta data={stepData[4]} updateData={updateStepData} />
+        );
       default:
         return null;
     }
@@ -85,4 +92,4 @@ const CampaignLayout = () => {
   );
 };
 
-export default CampaignLayout;
+export default CampaignLayoutMeta;

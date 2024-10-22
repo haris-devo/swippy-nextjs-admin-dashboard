@@ -7,8 +7,7 @@ import {
   FaMobileAlt,
   FaTrafficLight,
 } from "react-icons/fa";
-import Link from "next/link";
-import { styled } from "@mui/system";
+import ObjectiveCard from "./ObjectiveCard";
 
 interface Objective {
   title: string;
@@ -44,87 +43,19 @@ const objectives: Objective[] = [
   },
 ];
 
-const CardLink = styled(Link)(({ theme }) => ({
-  textDecoration: "none",
-  color: "inherit",
-  width: "100%",
-  height: "100%",
-  display: "block",
-}));
-
-const ObjectiveCard: React.FC<Objective> = ({
-  title,
-  description,
-  icon,
-  link,
-}) => (
-  <CardLink href={link}>
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        padding: "24px",
-        border: "1px solid #e0e0e0",
-        borderRadius: "12px",
-        cursor: "pointer",
-        height: "100%", // Ensures all cards have the same height
-        transition: "all 0.3s",
-        background: "#fff",
-        "&:hover": {
-          borderColor: "#c5e99c",
-          boxShadow: "0 4px 20px rgba(25, 118, 210, 0.2)",
-          transform: "translateY(-4px)",
-          backgroundColor: "#fdfdfd",
-          color: "white",
-        },
-      }}
-    >
-      <Box sx={{ marginBottom: 2 }}>{icon}</Box>
-      <Typography
-        variant="h6"
-        sx={{
-          fontWeight: 600,
-          marginBottom: 1,
-          color: "#1976d2",
-          textAlign: "center",
-        }}
-      >
-        {title}
-      </Typography>
-      <Typography
-        variant="body2"
-        color="textSecondary"
-        sx={{ textAlign: "center", fontSize: "0.95rem" }}
-      >
-        {description}
-      </Typography>
-    </Box>
-  </CardLink>
-);
-
 const SnapchatObjectiveSelector: any = () => {
   return (
     <Box
       sx={{
         width: "100%",
-        padding: { xs: "16px", sm: "24px" },
-        backgroundColor: "#f9f9f9",
+        padding: { xs: "16px", sm: "10px" },
+        // backgroundColor: "#f9f9f9",
         minHeight: "60vh",
       }}
     >
-      <Typography
-        variant="h6"
-        sx={{
-          marginBottom: 2,
-          textAlign: "center",
-          color: "#1976d2",
-          fontWeight: 700,
-        }}
-      >
+      <h2 className="mb-4 text-center text-2xl font-bold text-[#1976d2]">
         Choose Your Snapchat Objective
-      </Typography>
+      </h2>
       <Grid container spacing={2}>
         {objectives.map((objective, index) => (
           <Grid item xs={12} sm={6} md={6} key={index}>
