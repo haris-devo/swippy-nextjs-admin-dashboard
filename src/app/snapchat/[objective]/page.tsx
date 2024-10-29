@@ -9,7 +9,7 @@ const page = () => {
   console.log(objective)
   return (
     <div>
-      <CampaignHeader />
+      <CampaignHeader adType="snapchat"/>
       <CampaignLayout />
     </div>
   );
