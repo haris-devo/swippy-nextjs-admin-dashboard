@@ -37,7 +37,7 @@ export const useApihandler = () => {
     //   console.log(image)
       formdata.append('image',image)
     } 
-    axios.post(`http://localhost:4001/${url}`,formdata,{
+    axios.post(`http://52.203.74.103:4001/${url}`,formdata,{
       withCredentials:true,
       headers:{
          'Content-Type': 'multipart/form-data'
@@ -63,7 +63,7 @@ export const useApihandler = () => {
     
     dispatch(setLoading({isLoading:true}))
     formdata.append('data',JSON.stringify(formData))    
-    axios.put(`http://localhost:4001/${url}`,formdata,{
+    axios.put(`http://52.203.74.103:4001/${url}`,formdata,{
       withCredentials:true,
       headers:{
         'Content-Type':'application/json'
@@ -81,7 +81,7 @@ export const useApihandler = () => {
   }
   const getData=({url,setData}:ApiHandlerProps)=>{
     dispatch(setLoading({isLoading:true}))
-      axios.get(`http://localhost:4001/${url}`,{
+      axios.get(`http://52.203.74.103:4001/${url}`,{
         withCredentials:true,
         headers:{
           'Content-Type':'application/json'
